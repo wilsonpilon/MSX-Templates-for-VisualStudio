@@ -41,7 +41,11 @@ set DBG_EXTROVERT=200
 set DBG_PARAMS=230
 set DBG_VERBOSE=255
 set BUILD_DEBUG=%DBG_CALL2%
-
+REM -----------------------------------------------------------------------------------
+REM  Adaptacao VSC, Wilson "Barney" Pilon
+REM -----------------------------------------------------------------------------------
+set emulPath=C:\openmsx\openmsx.exe
+set emulArgs=-machine Gradiente_Expert_GPC-1 -ext Sharp_HB-3600 -script msxrom.tcl
 goto :orchestration
 
 #
@@ -562,4 +566,9 @@ call :build_msx_bin
 
 :orchestration_end
 call :finish
+REM -----------------------------------
+REM  Executa Codigo no openmsx
+REM -----------------------------------
+echo Executando: %emulPath% %emulArgs% -cart %MSX_BIN_PATH%\%MSX_FILE_NAME%.%MSX_FILE_EXTENSION%
+if exist %emulPath% call %emulPath% %emulArgs% -cart %MSX_BIN_PATH%\%MSX_FILE_NAME%.%MSX_FILE_EXTENSION%
 exit 0
